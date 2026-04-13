@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stellar-privacy-pool
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: privacy-pool-config
+  namespace: stellar-privacy-pool
+data:
+  DJANGO_SETTINGS_MODULE: "privacy_pool.settings"
+  STELLAR_NETWORK: "testnet"
+  STELLAR_HORIZON_URL: "https://horizon-testnet.stellar.org"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: privacy-pool-secrets
+  namespace: stellar-privacy-pool
+type: Opaque
+stringData:
+  SECRET_KEY: "your-secret-key-change-in-production"
+  POSTGRES_PASSWORD: "postgres"
+  POSTGRES_DB: "privacy_pool"
+  POSTGRES_USER: "postgres"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: stellar-privacy-pool
+spec:
+  selector:
+    app: backend
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: stellar-privacy-pool
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: privacy-pool-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: POSTGRES_HOST
+              value: "postgres-service"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: REDIS_HOST
+              value: "redis-service"
+          envFrom:
+            - configMapRef:
+                name: privacy-pool-config
+            - secretRef:
+                name: privacy-pool-secrets
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health/
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready/
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 5

@@ -1,0 +1,57 @@
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   Copyright 2024 Stellar Privacy Pool
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+---
+
+# Stellar Privacy Pool
+
+A privacy-preserving protocol for confidential transactions on the Stellar network.
+
+## Features
+
+- 🔒 **Zero-Knowledge Proofs** - Pedersen commitments with range proofs
+- 🌐 **Non-Custodial** - Users maintain control of their assets
+- ⚡ **Fast Settlement** - Built on Stellar's high-performance network
+- 📊 **Audit-Friendly** - Verifiable encryption for third-party audits
+
+## Tech Stack
+
+- **Backend**: Django 4.2, Celery, PostgreSQL
+- **Smart Contracts**: Soroban (Rust)
+- **Frontend**: React 18, TypeScript, TailwindCSS
+- **Infrastructure**: Docker, Kubernetes
+
+## Quick Start
+
+```bash
+# Clone and start
+docker-compose up -d
+
+# Access the dashboard
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+```
+
+## Security
+
+**IMPORTANT**: This software is provided for educational and development purposes. 
+Do NOT use with real funds without proper security audits and testing.
+
+## License
+
+Apache License 2.0 - See LICENSE file for details.
