@@ -1,13 +1,39 @@
 # 🌑 Stellar Privacy Pool
 
-> **Zero-Knowledge Proof based confidential transactions on Stellar**
-
-A revolutionary decentralized finance protocol enabling private, non-custodial asset transfers on the Stellar network using advanced cryptographic privacy techniques.
+> Zero-Knowledge Proof based confidential transactions on Stellar
 
 ![Stellar Privacy Pool Banner](https://img.shields.io/badge/Stellar-Soroban-blue?style=for-the-badge&logo=stellar)
 ![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue?style=for-the-badge&logo=python)
 ![Rust](https://img.shields.io/badge/Rust-1.70+-orange?style=for-the-badge&logo=rust)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178c6?style=for-the-badge&logo=typescript)
+
+## 🌟 About
+
+**Stellar Privacy Pool** is a revolutionary **privacy-preserving DeFi protocol** that enables confidential, non-custodial asset transfers on the Stellar network using advanced Zero-Knowledge Proof (ZKP) cryptography.
+
+### How It Works
+
+When you deposit funds into the pool, your transaction amount is hidden using **Pedersen Commitments** - a cryptographic scheme that allows you to prove you know a value without revealing it. Your funds enter a privacy pool with many other deposits, making it impossible to trace the source of any particular withdrawal.
+
+1. **Deposit**: Generate a cryptographic commitment (hash) of your amount + random blinding factor
+2. **Pool**: Your commitment joins thousands of others in a Merkle tree
+3. **Withdraw**: Prove you own a valid commitment without revealing which one
+
+### Why It Matters
+
+- 🔒 **Financial Privacy**: Hide transaction amounts from prying eyes
+- 🌐 **Non-Custodial**: You retain full control - no middleman holds your funds
+- ⚡ **Fast**: Built on Stellar's 3-5 second finality network
+- 🔗 **Interoperable**: Works with any Stellar asset (XLM, USDC, BTC, etc.)
+
+### Security Model
+
+- **Zero-Knowledge Proofs**: Prove transaction validity without revealing amounts
+- **Merkle Trees**: Efficient membership verification
+- **Nullifiers**: Prevent double-spending attacks
+- **Non-Custodial**: Sign transactions directly from your wallet (Freighter)
+
+> ⚠️ **Note**: This is a proof-of-concept for educational purposes. Do NOT use with real funds without proper security audits.
 
 ## 🔐 Features
 
